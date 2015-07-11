@@ -3,7 +3,7 @@ Terminals '{' '}' '(' ')' ',' ':' string number boolean query.
 Rootsymbol document.
 
 document -> '{' '}'                             : [].
-document -> '{' query string document '}'       : '$4'.
+document -> query string document               : '$3'.
 document -> '{' objects '}'                     : '$2'.
 
 objects -> object                               : ['$1'].

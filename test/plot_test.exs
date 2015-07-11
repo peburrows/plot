@@ -28,15 +28,6 @@ defmodule PlotTest do
   end
 
   test "basic user with field" do
-    # Ideally, eventually, I'd want:
-    # %User{args: [id: 4], attrs: [%Field{name: :name, args:[], attrs: []}]}
-    # or even something like:
-    # %Plot.Field{
-    #   name:  :user,
-    #   args:  [id: 4],
-    #   attrs: [ %Plot.Field{name: :name, args: [], attrs: []} ]
-    # }
-
     assert {:ok,
       [ {:user, nil, [id: 4], [{:name, nil, [], []}]} ]
     } = read_fixture("user") |> Plot.parse
@@ -105,5 +96,13 @@ defmodule PlotTest do
         ]}
       ]
     } = read_fixture("user-with-field-aliases") |> Plot.parse
+  end
+
+  test "user with query" do
+    assert {:ok,
+      [
+        {:user, nil, [], []}
+      ]
+    } = "query userQuery {user}" |> Plot.parse
   end
 end
