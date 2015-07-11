@@ -1,6 +1,8 @@
 defmodule Plot do
   def parse(string) do
-    string |> lex |> :graphql_parser.parse
+    lexed = string |> lex |> :graphql_parser.parse
+    # IO.inspect lexed
+    # lexed
   end
 
   def lex(string) do

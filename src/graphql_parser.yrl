@@ -36,6 +36,5 @@ Erlang code.
 
 value({_Token, _Line, Value}) -> Value.
 
-% we might want to eventually create a selection set similar to this.
-% The problem, though, is that it seems to come to Elixir as a tuple
--record(selection_set, {name, args=[], fields=[]}).
+% this seems like a nice idea, but I'm not sure I want to deal with it...
+-record(field, {name, alias=nil, args=[], fields=[]}).
