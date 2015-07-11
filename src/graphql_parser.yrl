@@ -1,10 +1,12 @@
 Nonterminals document objects object arglist args arg field.
-Terminals '{' '}' '(' ')' ',' ':' string number boolean query.
+Terminals '{' '}' '(' ')' ',' ':' string number boolean query mutation.
 Rootsymbol document.
 
 document -> '{' '}'                             : {'query', nil, []}.
 document -> query string '{' objects '}'        : {'query', value('$2'), '$4'}.
 document -> '{' objects '}'                     : {'query', nil, '$2'}.
+
+document -> mutation string '{' objects '}'     : {mutation, value('$2'), '$4'}.
 
 objects -> object                               : ['$1'].
 objects -> object ',' objects                   : ['$1'|'$3'].
