@@ -2,9 +2,9 @@ Nonterminals document objects object arglist args arg field.
 Terminals '{' '}' '(' ')' ',' ':' string number boolean query.
 Rootsymbol document.
 
-document -> '{' '}'                             : [].
-document -> query string document               : '$3'.
-document -> '{' objects '}'                     : '$2'.
+document -> '{' '}'                             : {'query', nil, []}.
+document -> query string '{' objects '}'        : {'query', value('$2'), '$4'}.
+document -> '{' objects '}'                     : {'query', nil, '$2'}.
 
 objects -> object                               : ['$1'].
 objects -> object ',' objects                   : ['$1'|'$3'].
@@ -12,14 +12,18 @@ objects -> object ',' objects                   : ['$1'|'$3'].
 % without aliases
 object  -> string                               : {value('$1'), nil, [], []}.
 object  -> string arglist                       : {value('$1'), nil, '$2', []}.
-object  -> string document                      : {value('$1'), nil, [], '$2'}.
-object  -> string arglist document              : {value('$1'), nil, '$2', '$3'}.
+% object  -> string document                      : {value('$1'), nil, [], '$2'}.
+object  -> string '{' objects '}'               : {value('$1'), nil, [], '$3'}.
+% object  -> string arglist document              : {value('$1'), nil, '$2', '$3'}.
+object  -> string arglist '{' objects '}'       : {value('$1'), nil, '$2', '$4'}.
 
 % with aliases
 object  -> string ':' string                    : {value('$3'), value('$1'), [], []}.
 object  -> string ':' string arglist            : {value('$3'), value('$1'), '$4', []}.
-object  -> string ':' string document           : {value('$3'), value('$1'), [], '$4'}.
-object  -> string ':' string arglist document   : {value('$3'), value('$1'), '$4', '$5'}.
+% object  -> string ':' string document           : {value('$3'), value('$1'), [], '$4'}.
+object  -> string ':' string '{' objects '}'    : {value('$3'), value('$1'), [], '$5'}.
+% object  -> string ':' string arglist document   : {value('$3'), value('$1'), '$4', '$5'}.
+object  -> string ':' string arglist '{' objects '}' : {value('$3'), value('$1'), '$4', '$6'}.
 
 arglist  -> '(' ')'                             : [].
 arglist  -> '(' args ')'                        : '$2'.
