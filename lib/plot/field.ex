@@ -1,5 +1,5 @@
 defmodule Plot.Field do
-  defstruct name: nil, alias: nil, attrs: [], args: []
+  defstruct name: nil, alias: nil, args: []
 
   def from_doc(doc), do: _from_doc(doc, [])
 
@@ -8,12 +8,11 @@ defmodule Plot.Field do
     _from_doc(tail, [from_field_tuple(head) | acc])
   end
 
-  defp from_field_tuple(f) do
+  def from_field_tuple(f) do
     %Plot.Field{
       name:  elem(f, 0),
       alias: elem(f, 1),
-      args:  elem(f, 2),
-      attrs: from_doc( elem(f, 3) )
+      args:  elem(f, 2)
     }
   end
 end
