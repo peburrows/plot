@@ -2,3 +2,5 @@
 /deps
 erl_crash.dump
 *.ez
+/src/*_lexer.erl
+/src/*_parser.erl
