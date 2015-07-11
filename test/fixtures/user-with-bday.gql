@@ -1,0 +1,11 @@
+{
+  user(id: 4) {
+    id,
+    firstName,
+    lastName,
+    birthday {
+      month,
+      day
+    }
+  }
+}
