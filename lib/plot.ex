@@ -9,4 +9,8 @@ defmodule Plot do
     {:ok, lexed, _} = string |> String.to_char_list |> :graphql_lexer.string
     lexed
   end
+
+  def fields(string) do
+    string |> lex |> parse |> Plot.Field.from_doc
+  end
 end
