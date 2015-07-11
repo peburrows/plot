@@ -1,24 +1,25 @@
-Nonterminals document fragments fragment arglist args arg field.
-Terminals '{' '}' '(' ')' ',' ':' string number.
+Nonterminals document objects object arglist args arg field.
+Terminals '{' '}' '(' ')' ',' ':' string number boolean query.
 Rootsymbol document.
 
 document -> '{' '}'                             : [].
-document -> '{' fragments '}'                   : '$2'.
+document -> '{' query string document '}'       : '$4'.
+document -> '{' objects '}'                     : '$2'.
 
-fragments -> fragment                           : ['$1'].
-fragments -> fragment ',' fragments             : ['$1'|'$3'].
+objects -> object                               : ['$1'].
+objects -> object ',' objects                   : ['$1'|'$3'].
 
 % without aliases
-fragment  -> string                             : {value('$1'), nil, [], []}.
-fragment  -> string arglist                     : {value('$1'), nil, '$2', []}.
-fragment  -> string document                    : {value('$1'), nil, [], '$2'}.
-fragment  -> string arglist document            : {value('$1'), nil, '$2', '$3'}.
+object  -> string                               : {value('$1'), nil, [], []}.
+object  -> string arglist                       : {value('$1'), nil, '$2', []}.
+object  -> string document                      : {value('$1'), nil, [], '$2'}.
+object  -> string arglist document              : {value('$1'), nil, '$2', '$3'}.
 
 % with aliases
-fragment  -> string ':' string                  : {value('$3'), value('$1'), [], []}.
-fragment  -> string ':' string arglist          : {value('$3'), value('$1'), '$4', []}.
-fragment  -> string ':' string document         : {value('$3'), value('$1'), [], '$4'}.
-fragment  -> string ':' string arglist document : {value('$3'), value('$1'), '$4', '$5'}.
+object  -> string ':' string                    : {value('$3'), value('$1'), [], []}.
+object  -> string ':' string arglist            : {value('$3'), value('$1'), '$4', []}.
+object  -> string ':' string document           : {value('$3'), value('$1'), [], '$4'}.
+object  -> string ':' string arglist document   : {value('$3'), value('$1'), '$4', '$5'}.
 
 arglist  -> '(' ')'                             : [].
 arglist  -> '(' args ')'                        : '$2'.
@@ -30,7 +31,7 @@ arg      -> string ':' field                    : {value('$1'), '$3'}.
 
 field -> string                                 : value('$1').
 field -> number                                 : value('$1').
-
+field -> boolean                                : value('$1').
 
 Erlang code.
 
