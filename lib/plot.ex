@@ -1,9 +1,10 @@
 defmodule Plot do
-  def parse(list) do
-    {:ok, lexed, _} = list |> String.to_char_list |> :graphql_lexer.string
-    # IO.inspect lexed
-    parsed = lexed |> :graphql_parser.parse
-    # IO.inspect parsed
-    parsed
+  def parse(string) do
+    string |> lex |> :graphql_parser.parse
+  end
+
+  def lex(string) do
+    {:ok, lexed, _} = string |> String.to_char_list |> :graphql_lexer.string
+    lexed
   end
 end

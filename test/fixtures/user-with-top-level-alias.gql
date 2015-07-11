@@ -1,0 +1,6 @@
+{
+  phil: user(id: 4) {
+    id,
+    name
+  }
+}
