@@ -8,7 +8,7 @@ WHITESPACE = [\s\t\n\r]
 Rules.
 
 {INT}         : {token, {number,TokenLine, list_to_integer(TokenChars)}}.
-{FLOAT}       : {token, {number,TokenLine, list_to_integer(TokenChars)}}.
+{FLOAT}       : {token, {number,TokenLine, list_to_float(TokenChars)}}.
 {STRING}      : {token, {string,TokenLine, list_to_atom(TokenChars)}}.
 :             : {token, {':',   TokenLine}}.
 \(            : {token, {'(',   TokenLine}}.
