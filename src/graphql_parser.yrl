@@ -1,5 +1,5 @@
 Nonterminals document fragments fragment arglist args arg field.
-Terminals '{' '}' '(' ')' ',' ':' string int.
+Terminals '{' '}' '(' ')' ',' ':' string number.
 Rootsymbol document.
 
 document -> '{' '}'                             : [].
@@ -29,7 +29,7 @@ args     -> arg ',' args                        : ['$1'|'$3'].
 arg      -> string ':' field                    : {value('$1'), '$3'}.
 
 field -> string                                 : value('$1').
-field -> int                                    : value('$1').
+field -> number                                 : value('$1').
 
 
 Erlang code.
