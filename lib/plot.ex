@@ -13,4 +13,12 @@ defmodule Plot do
   def fields(string) do
     string |> lex |> parse |> Plot.Field.from_doc
   end
+
+  def parse_and_generate(doc) do
+    case doc do
+      {:query,    _name, _doc} -> Plot.Query.new(doc)
+      {:mutation, _name, _doc} -> Plot.Mutation.new(doc)
+    end
+  end
+
 end
