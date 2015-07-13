@@ -17,7 +17,7 @@ defmodule PlotTest do
 
   test "{user(id: 4)}" do
     assert {:ok,
-      {:query, nil, [ {:user, nil, [id: 4], []} ] }
+      {:query, nil, [ {:user, nil, [id: {:number, 4}], []} ] }
     } = Plot.parse("{user(id: 4)}")
   end
 
@@ -30,7 +30,7 @@ defmodule PlotTest do
   test "basic user with field" do
     assert {:ok,
       {:query, nil,
-        [ {:user, nil, [id: 4], [{:name, nil, [], []}]} ]
+        [ {:user, nil, [id: {:number, 4}], [{:name, nil, [], []}]} ]
       }
     } = read_fixture("user") |> Plot.parse
   end
@@ -51,10 +51,10 @@ defmodule PlotTest do
     assert {:ok,
       {:query, nil,
         [
-          {:user, nil, [id: 4], [
+          {:user, nil, [id: {:number, 4}], [
             {:id, nil, [], []},
             {:name, nil, [], []},
-            {:profilePic, nil, [width: 100, height: 50], []}
+            {:profilePic, nil, [width: {:number, 100}, height: {:number, 50}], []}
           ]}
         ]
       }
@@ -66,7 +66,7 @@ defmodule PlotTest do
       {:query, nil,
         [
           {
-            :user, nil, [id: 4], [
+            :user, nil, [id: {:number, 4}], [
               {:id, nil, [], []},
               {:firstName, nil, [], []},
               {:lastName,  nil, [], []},
@@ -85,7 +85,7 @@ defmodule PlotTest do
   test "user with top level alias" do
     assert {:ok,
       {:query, nil, [
-        {:user, :phil, [id: 4], [
+        {:user, :phil, [id: {:number, 4}], [
           {:id,   nil, [], []},
           {:name, nil, [], []}
         ]}
@@ -97,11 +97,11 @@ defmodule PlotTest do
     assert {:ok,
       {:query, nil,
         [
-          {:user, nil, [id: 4], [
+          {:user, nil, [id: {:number, 4}], [
             {:id, nil, [], []},
             {:name, nil, [], []},
-            {:profilePic, :smallPic, [size: 64], []},
-            {:profilePic, :bigPic, [size: 1024], []}
+            {:profilePic, :smallPic, [size: {:number, 64}], []},
+            {:profilePic, :bigPic, [size: {:number, 1024}], []}
           ]}
         ]
       }
