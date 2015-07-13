@@ -1,5 +1,5 @@
 defmodule Plot.Query do
-  defstruct name: nil, objects: []
+  defstruct name: nil, objects: [], variables: []
 
   def new(doc) do
     {:query, name, objects} = doc

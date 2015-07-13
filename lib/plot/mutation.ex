@@ -1,5 +1,5 @@
 defmodule Plot.Mutation do
-  defstruct name: nil, objects: []
+  defstruct name: nil, objects: [], variables: []
 
   def new(doc) do
     {:mutation, name, objects} = doc

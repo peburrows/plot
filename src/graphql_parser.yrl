@@ -1,5 +1,5 @@
-Nonterminals document objects object arglist args arg field.
-Terminals '{' '}' '(' ')' ',' ':' string number boolean query mutation.
+Nonterminals document objects object arglist args arg field value.
+Terminals '{' '}' '(' ')' ',' ':' string number boolean query mutation variable.
 Rootsymbol document.
 
 document -> '{' '}'                             : {'query', nil, []}.
@@ -18,7 +18,8 @@ object  -> string '{' objects '}'               : {value('$1'), nil, [], '$3'}.
 object  -> string arglist '{' objects '}'       : {value('$1'), nil, '$2', '$4'}.
 
 % with aliases
-object  -> string ':' string                    : {value('$3'), value('$1'), [], []}.
+object  -> string ':' value                     : {value('$3'), value('$1'), [], []}.
+% object  -> string ':' variable                  : {value('$3'), value('$1'), [], []}.
 object  -> string ':' string arglist            : {value('$3'), value('$1'), '$4', []}.
 object  -> string ':' string '{' objects '}'    : {value('$3'), value('$1'), [], '$5'}.
 object  -> string ':' string arglist '{' objects '}' : {value('$3'), value('$1'), '$4', '$6'}.
@@ -29,11 +30,11 @@ arglist  -> '(' args ')'                        : '$2'.
 args     -> arg                                 : ['$1'].
 args     -> arg ',' args                        : ['$1'|'$3'].
 
-arg      -> string ':' field                    : {value('$1'), '$3'}.
+arg      -> string ':' value                    : {value('$1'), '$3'}.
 
-field -> string                                 : value('$1').
-field -> number                                 : value('$1').
-field -> boolean                                : value('$1').
+value -> variable                               : value('$1').
+value -> number                                 : value('$1').
+value -> boolean                                : value('$1').
 
 Erlang code.
 
