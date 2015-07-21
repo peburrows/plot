@@ -1,6 +1,9 @@
-Nonterminals document objects object arglist args arg value fragref.
+Nonterminals documents document objects object arglist args arg value fragref.
 Terminals '{' '}' '(' ')' ',' ':' '.' key number boolean query mutation variable string fragment on.
-Rootsymbol document.
+Rootsymbol documents.
+
+documents -> document                           : ['$1'].
+documents -> document documents                 : ['$1'|'$2'].
 
 document -> '{' '}'                             : #query{}.
 document -> query key '{' objects '}'           : #query{name=value('$2'), objects='$4'}.
@@ -19,7 +22,7 @@ object  -> key                                  : #attr{name=value('$1')}.
 object  -> key arglist                          : #attr{name=value('$1'), args='$2'}.
 object  -> key '{' objects '}'                  : #object{name=value('$1'), children='$3'}.
 object  -> key arglist '{' objects '}'          : #object{name=value('$1'), args='$2', children='$4'}.
-object -> '.' '.' '.' on key '{' objects '}'    : #fragment{type=value('$5'), objects='$7'}.
+object  -> '.' '.' '.' on key '{' objects '}'   : #fragment{type=value('$5'), objects='$7'}.
 
 % with aliases
 object  -> key ':' value                        : #attr{name=value('$3'), alias=value('$1')}.

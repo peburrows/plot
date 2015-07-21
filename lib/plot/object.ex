@@ -1,23 +1,21 @@
 defmodule Plot.Object do
-  defstruct name: nil, alias: nil, fields: [], args: []
+  defstruct name: nil, alias: nil, args: [], fields: []
 
-  def from_doc(doc), do: _from_doc(doc, [])
+  def new(objs) when is_list(objs), do: _from_list(objs, [])
+  def new(objs), do: _from_list([objs], [])
 
-  defp _from_doc([], acc), do: acc
-  defp _from_doc([head|tail], acc) do
-    case elem(head, 3) do
-      # if it has no fields, it's not object
-      []      -> _from_doc(tail, [Plot.Field.from_field_tuple(head) | acc])
-      _fields -> _from_doc(tail, [from_object_tuple(head) | acc])
-    end
+  defp _from_list([], acc), do: acc
+  defp _from_list([head|tail], acc) do
+    _from_list(tail, [_from_tuple(head) | acc])
   end
 
-  def from_object_tuple(t) do
+  defp _from_tuple(t) do
+    {:object, name, al, args, attrs} = t
     %Plot.Object{
-      name:   elem(t, 0),
-      alias:  elem(t, 1),
-      args:   elem(t, 2),
-      fields: from_doc( elem(t, 3) )
+      name:   name,
+      alias:  al,
+      args:   Plot.Arg.new(args),
+      fields: Plot.Attr.new(attrs)
     }
   end
 end

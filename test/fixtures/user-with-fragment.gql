@@ -1,0 +1,12 @@
+{
+  user {
+    firstName,
+    lastName,
+    ...otherFields
+  }
+}
+
+fragment otherFields on User {
+  id,
+  birthdate
+}
