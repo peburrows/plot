@@ -136,4 +136,21 @@ defmodule PlotTest do
       }
     } = "fragment userName on User { firstName, lastName }" |> Plot.parse
   end
+
+  test "inline fragment" do
+    assert {:ok,
+      {:query, nil,
+        [
+          {:object, :user, nil, [],
+            [
+              {:fragment, nil, :User, [
+                {:attr, :firstName, nil, []},
+                {:attr, :lastName,  nil, []}
+              ]}
+            ]
+          }
+        ]
+      }
+    } = "{user { ... on User {firstName, lastName} }}" |> Plot.parse
+  end
 end
