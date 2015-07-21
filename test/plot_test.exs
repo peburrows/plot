@@ -115,4 +115,25 @@ defmodule PlotTest do
       }
     } = "query userQuery {user}" |> Plot.parse
   end
+
+  test "simple fragment ref" do
+    assert {:ok,
+      {:query, nil,
+        [{:object, :user, nil, [], [
+          {:fragref, :myFrag}
+        ]}]
+      }
+    } = "{user { ...myFrag }}" |> Plot.parse
+  end
+
+  test "simple fragment" do
+    assert {:ok,
+      {:fragment, :userName, :User,
+        [
+          {:attr, :firstName, nil, []},
+          {:attr, :lastName,  nil, []}
+        ]
+      }
+    } = "fragment userName on User { firstName, lastName }" |> Plot.parse
+  end
 end

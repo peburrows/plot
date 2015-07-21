@@ -1,5 +1,5 @@
-Nonterminals document objects object arglist args arg value.
-Terminals '{' '}' '(' ')' ',' ':' key number boolean query mutation variable string.
+Nonterminals document objects object arglist args arg value fragref.
+Terminals '{' '}' '(' ')' ',' ':' '.' key number boolean query mutation variable string fragment on.
 Rootsymbol document.
 
 document -> '{' '}'                             : #query{}.
@@ -8,10 +8,13 @@ document -> '{' objects '}'                     : #query{objects='$2'}.
 
 document -> mutation key '{' objects '}'        : #mutation{name=value('$2'), objects='$4'}.
 
+document -> fragment key on key '{' objects '}' : #fragment{name=value('$2'), type=value('$4'), objects='$6'}.
+
 objects -> object                               : ['$1'].
 objects -> object ',' objects                   : ['$1'|'$3'].
 
 % without aliases
+object  -> fragref                              : '$1'.
 object  -> key                                  : #attr{name=value('$1')}.
 object  -> key arglist                          : #attr{name=value('$1'), args='$2'}.
 object  -> key '{' objects '}'                  : #object{name=value('$1'), children='$3'}.
@@ -23,7 +26,7 @@ object  -> key ':' key arglist                  : #attr{name=value('$3'), alias=
 object  -> key ':' key '{' objects '}'          : #object{name=value('$3'), alias=value('$1'), children='$5'}.
 object  -> key ':' key arglist '{' objects '}'  : #object{name=value('$3'), alias=value('$1'), args='$4', children='$6' }.
 
-% frag_ref-> '.' '.' '.' key                      : {frag_ref, }
+fragref -> '.' '.' '.' key                      : #fragref{name=value('$4')}.
 
 arglist  -> '(' ')'                             : [].
 arglist  -> '(' args ')'                        : '$2'.
@@ -49,4 +52,5 @@ token({Token, _Line, _Value}) -> Token.
 -record(object,   {name=nil, alias=nil, args=[], children=[]}).
 -record(attr,     {name=nil, alias=nil, args=[]}).
 -record(arg,      {key=nil,  value=nil}).
--record(frag_ref, {name=nil}).
+-record(fragref,  {name=nil}).
+-record(fragment, {name=nil, type=nil, objects=[]}).

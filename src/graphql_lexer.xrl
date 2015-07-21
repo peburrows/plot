@@ -18,6 +18,7 @@ query                  : {token, {query,    TokenLine, list_to_atom(TokenChars)}
 mutation               : {token, {mutation, TokenLine, list_to_atom(TokenChars)}}.
 schema                 : {token, {schema,   TokenLine, list_to_atom(TokenChars)}}.
 fragment               : {token, {fragment, TokenLine, list_to_atom(TokenChars)}}.
+on                     : {token, {on,       TokenLine, list_to_atom(TokenChars)}}.
 true                   : {token, {boolean,  TokenLine, true}}.
 false                  : {token, {boolean,  TokenLine, false}}.
 {KEY}                  : {token, {key,      TokenLine, list_to_atom(TokenChars)}}.
