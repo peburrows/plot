@@ -31,8 +31,9 @@ A GraphQL lexer and parser for Elixir
 }" |> Plot.parse_and_generate
 # %Plot.Document{fragments: [],
 #  operations: [%Plot.Query{name: nil,
-#    objects: [%Plot.Object{alias: nil, args: [],
-#      fields: [%Plot.Field{alias: nil, args: [], name: :lastName},
-#       %Plot.Field{alias: nil, args: [], name: :firstName},
-#       %Plot.Field{alias: nil, args: [], name: :id}], name: :user}]}], variables: []}
+#  objects:    [%Plot.Object{alias: nil, args: [],
+#  fields:     [%Plot.Field{alias: nil, args: [], name: :lastName},
+#               %Plot.Field{alias: nil, args: [], name: :firstName},
+#               %Plot.Field{alias: nil, args: [], name: :id}], name: :user}]}],
+# variables:   []}
 ```
