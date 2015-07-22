@@ -18,15 +18,15 @@ objects -> object ',' objects                   : ['$1'|'$3'].
 
 % without aliases
 object  -> fragref                              : '$1'.
-object  -> key                                  : #attr{name=value('$1')}.
-object  -> key arglist                          : #attr{name=value('$1'), args='$2'}.
+object  -> key                                  : #field{name=value('$1')}.
+object  -> key arglist                          : #field{name=value('$1'), args='$2'}.
 object  -> key '{' objects '}'                  : #object{name=value('$1'), children='$3'}.
 object  -> key arglist '{' objects '}'          : #object{name=value('$1'), args='$2', children='$4'}.
 object  -> '.' '.' '.' on key '{' objects '}'   : #fragment{type=value('$5'), objects='$7'}.
 
 % with aliases
-object  -> key ':' value                        : #attr{name=value('$3'), alias=value('$1')}.
-object  -> key ':' key arglist                  : #attr{name=value('$3'), alias=value('$1'), args='$4'}.
+object  -> key ':' value                        : #field{name=value('$3'), alias=value('$1')}.
+object  -> key ':' key arglist                  : #field{name=value('$3'), alias=value('$1'), args='$4'}.
 object  -> key ':' key '{' objects '}'          : #object{name=value('$3'), alias=value('$1'), children='$5'}.
 object  -> key ':' key arglist '{' objects '}'  : #object{name=value('$3'), alias=value('$1'), args='$4', children='$6' }.
 
@@ -54,7 +54,7 @@ token({Token, _Line, _Value}) -> Token.
 -record(query,    {name=nil, objects=[]}).
 -record(mutation, {name=nil, objects=[]}).
 -record(object,   {name=nil, alias=nil, args=[], children=[]}).
--record(attr,     {name=nil, alias=nil, args=[]}).
+-record(field,    {name=nil, alias=nil, args=[]}).
 -record(arg,      {key=nil,  value=nil}).
 -record(fragref,  {name=nil}).
 -record(fragment, {name=nil, type=nil, objects=[]}).

@@ -1,4 +1,4 @@
-defmodule Plot.Attr do
+defmodule Plot.Field do
   defstruct name: nil, alias: nil, args: []
 
   def new(attr_list) when is_list(attr_list), do: _from_attr_list(attr_list, [])
@@ -10,8 +10,8 @@ defmodule Plot.Attr do
   end
 
   defp _from_tuple(attr) do
-    {:attr, name, al, args} = attr
-    %Plot.Attr{
+    {:field, name, al, args} = attr
+    %Plot.Field{
       name:  name,
       alias: al,
       args:  args

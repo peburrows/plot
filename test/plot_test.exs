@@ -11,26 +11,26 @@ defmodule PlotTest do
 
   test "{user}" do
     assert {:ok,
-      [{:query, nil, [ {:attr, :user, nil, []} ]}]
+      [{:query, nil, [ {:field, :user, nil, []} ]}]
     } = Plot.parse("{user}")
   end
 
   test "{user(id: 4)}" do
     assert {:ok,
-      [{:query, nil, [ {:attr, :user, nil, [id: {:number, 4}]} ] }]
+      [{:query, nil, [ {:field, :user, nil, [id: {:number, 4}]} ] }]
     } = Plot.parse("{user(id: 4)}")
   end
 
   test "{user {name}}" do
     assert {:ok,
-      [{:query, nil, [{:object, :user, nil, [], [{:attr, :name, nil, []}]}] }]
+      [{:query, nil, [{:object, :user, nil, [], [{:field, :name, nil, []}]}] }]
     } = "{user {name}}" |> Plot.parse
   end
 
   test "basic user with field" do
     assert {:ok,
       [{:query, nil,
-        [ {:object, :user, nil, [id: {:number, 4}], [{:attr, :name, nil, []}]} ]
+        [ {:object, :user, nil, [id: {:number, 4}], [{:field, :name, nil, []}]} ]
       }]
     } = read_fixture("user") |> Plot.parse
   end
@@ -39,9 +39,9 @@ defmodule PlotTest do
     assert {:ok,
       [{:query, nil,
         [
-          {:attr, :user,  nil, []},
-          {:attr, :loser, nil, []},
-          {:attr, :jim,   nil, []}
+          {:field, :user,  nil, []},
+          {:field, :loser, nil, []},
+          {:field, :jim,   nil, []}
         ]
       }]
     } = "{user, loser, jim}" |> Plot.parse
@@ -52,9 +52,9 @@ defmodule PlotTest do
       [{:query, nil,
         [
           {:object, :user, nil, [id: {:number, 4}], [
-            {:attr, :id, nil, []},
-            {:attr, :name, nil, []},
-            {:attr, :profilePic, nil, [width: {:number, 100}, height: {:number, 50}]}
+            {:field, :id, nil, []},
+            {:field, :name, nil, []},
+            {:field, :profilePic, nil, [width: {:number, 100}, height: {:number, 50}]}
           ]}
         ]
       }]
@@ -67,12 +67,12 @@ defmodule PlotTest do
         [
           {
             :object, :user, nil, [id: {:number, 4}], [
-              {:attr, :id, nil, []},
-              {:attr, :firstName, nil, []},
-              {:attr, :lastName,  nil, []},
+              {:field, :id, nil, []},
+              {:field, :firstName, nil, []},
+              {:field, :lastName,  nil, []},
               {:object, :birthday,  nil, [], [
-                  {:attr, :month, nil, []},
-                  {:attr, :day,   nil, []}
+                  {:field, :month, nil, []},
+                  {:field, :day,   nil, []}
                 ]
               }
             ]
@@ -86,8 +86,8 @@ defmodule PlotTest do
     assert {:ok,
       [{:query, nil, [
         {:object, :user, :phil, [id: {:number, 4}], [
-          {:attr, :id,   nil, []},
-          {:attr, :name, nil, []}
+          {:field, :id,   nil, []},
+          {:field, :name, nil, []}
         ]}
       ]}]
     } = read_fixture("user-with-top-level-alias") |> Plot.parse
@@ -98,10 +98,10 @@ defmodule PlotTest do
       [{:query, nil,
         [
           {:object, :user, nil, [id: {:number, 4}], [
-            {:attr, :id, nil, []},
-            {:attr, :name, nil, []},
-            {:attr, :profilePic, :smallPic, [size: {:number, 64}]},
-            {:attr, :profilePic, :bigPic, [size: {:number, 1024}]}
+            {:field, :id, nil, []},
+            {:field, :name, nil, []},
+            {:field, :profilePic, :smallPic, [size: {:number, 64}]},
+            {:field, :profilePic, :bigPic, [size: {:number, 1024}]}
           ]}
         ]
       }]
@@ -111,7 +111,7 @@ defmodule PlotTest do
   test "user with query" do
     assert {:ok,
       [{:query, :userQuery,
-        [ {:attr, :user, nil, []} ]
+        [ {:field, :user, nil, []} ]
       }]
     } = "query userQuery {user}" |> Plot.parse
   end
@@ -130,8 +130,8 @@ defmodule PlotTest do
     assert {:ok,
       [{:fragment, :userName, :User,
         [
-          {:attr, :firstName, nil, []},
-          {:attr, :lastName,  nil, []}
+          {:field, :firstName, nil, []},
+          {:field, :lastName,  nil, []}
         ]
       }]
     } = "fragment userName on User { firstName, lastName }" |> Plot.parse
@@ -144,8 +144,8 @@ defmodule PlotTest do
           {:object, :user, nil, [],
             [
               {:fragment, nil, :User, [
-                {:attr, :firstName, nil, []},
-                {:attr, :lastName,  nil, []}
+                {:field, :firstName, nil, []},
+                {:field, :lastName,  nil, []}
               ]}
             ]
           }
@@ -160,15 +160,15 @@ defmodule PlotTest do
         {:query, nil,
           [
             {:object, :user, nil, [], [
-              {:attr, :firstName, nil, []},
-              {:attr, :lastName,  nil, []},
+              {:field, :firstName, nil, []},
+              {:field, :lastName,  nil, []},
               {:fragref, :otherFields}
             ]}
           ]
         },
         {:fragment, :otherFields, :User, [
-            {:attr, :id,         nil, []},
-            {:attr, :birthdate,  nil, []}
+            {:field, :id,         nil, []},
+            {:field, :birthdate,  nil, []}
         ]}
       ]
     } = read_fixture("user-with-fragment") |> Plot.parse

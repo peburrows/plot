@@ -15,7 +15,7 @@ defmodule Plot.Object do
       name:   name,
       alias:  al,
       args:   Plot.Arg.new(args),
-      fields: Plot.Attr.new(attrs)
+      fields: Plot.Field.new(attrs)
     }
   end
 end
