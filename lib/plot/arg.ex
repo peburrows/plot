@@ -1,5 +1,5 @@
 defmodule Plot.Arg do
-  defstruct name: nil, type: nil
+  defstruct key: nil, value: nil
 
   def new(arg_list) when is_list(arg_list), do: _from_arg_list(arg_list, [])
   def new(arg_list), do: _from_arg_list([arg_list], [])
@@ -10,10 +10,10 @@ defmodule Plot.Arg do
   end
 
   defp _from_tuple(t) do
-    {name, type} = t
+    {name, value} = t
     %Plot.Arg{
-      name: name,
-      type: type
+      key:   name,
+      value: value
     }
   end
 end

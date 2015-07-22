@@ -14,7 +14,7 @@ defmodule Plot.Field do
     %Plot.Field{
       name:  name,
       alias: al,
-      args:  args
+      args:  Plot.Arg.new(args)
     }
   end
 end

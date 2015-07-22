@@ -18,4 +18,12 @@ defmodule PlotFieldTest do
       %Plot.Field{alias: :pic, name: :profilePic}
     ] = [{:field, :profilePic, :pic, []}] |> Plot.Field.new
   end
+
+  test "with args" do
+    assert [
+      %Plot.Field{name: :profilePic,
+                  args: [%Plot.Arg{key: :height, value: {:number, 400}},
+                         %Plot.Arg{key: :width, value: {:number, 200}}]}
+      ] = [{:field, :profilePic, nil, [width: {:number, 200}, height: {:number, 400}]}] |> Plot.Field.new
+  end
 end
