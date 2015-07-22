@@ -173,4 +173,16 @@ defmodule PlotTest do
       ]
     } = read_fixture("user-with-fragment") |> Plot.parse
   end
+
+  test "array argument" do
+    assert {:ok,
+      [{:query, nil,
+        [{:object, :user, nil,
+          [things: [{:number, 4}, {:string, "phil"}, {:variable, :whatever}]],
+          [{:field, :id, nil, []}]
+          }
+        ]
+      }
+    ]} = "{user(things: [4, \"phil\", $whatever]){id}}" |> Plot.parse
+  end
 end

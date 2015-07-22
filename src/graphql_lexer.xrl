@@ -11,7 +11,7 @@ WHITESPACE = [\s\t\n\r]
 Rules.
 
 % double-quoted string
-"[^"\\]*(\\.[^"\\]*)*" : {token, {string,   TokenLine, list_to_atom(TokenChars)}}.
+"[^"\\]*(\\.[^"\\]*)*" : {token, {string,   TokenLine, strip(TokenChars,TokenLen)}}.
 {INT}                  : {token, {number,   TokenLine, list_to_integer(TokenChars)}}.
 {FLOAT}                : {token, {number,   TokenLine, list_to_float(TokenChars)}}.
 query                  : {token, {query,    TokenLine, list_to_atom(TokenChars)}}.
@@ -30,8 +30,11 @@ false                  : {token, {boolean,  TokenLine, false}}.
 }                      : {token, {'}',      TokenLine}}.
 ,                      : {token, {',',      TokenLine}}.
 \.                     : {token, {'.',      TokenLine}}.
+\[                     : {token, {'[',      TokenLine}}.
+\]                     : {token, {']',      TokenLine}}.
 {WHITESPACE}+          : skip_token.
 
 Erlang code.
 
 variable_to_atom([$$|Chars]) -> list_to_atom(Chars).
+strip(TokenChars,TokenLen)   -> lists:sublist(TokenChars, 2, TokenLen - 2).
