@@ -1,11 +1,11 @@
 defmodule Plot.Mutation do
   defstruct name: nil, objects: [] #, variables: []
 
-  def new(doc) do
-    {:mutation, name, objects} = doc
+  def new(mutation) do
+    {:mutation, name, objects} = mutation
     %Plot.Mutation{
       name:    name,
-      objects: Plot.Object.from_doc(objects)
+      objects: Plot.Object.new(objects)
     }
   end
 end

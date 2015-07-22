@@ -1,8 +1,6 @@
 defmodule Plot do
   def parse(string) do
-    lexed = string |> lex |> :graphql_parser.parse
-    # IO.inspect lexed
-    # lexed
+    string |> lex |> :graphql_parser.parse
   end
 
   def lex(string) do
@@ -15,10 +13,9 @@ defmodule Plot do
   end
 
   def parse_and_generate(doc) do
-    case doc do
-      {:query,    _name, _doc} -> Plot.Query.new(doc)
-      {:mutation, _name, _doc} -> Plot.Mutation.new(doc)
+    case parse(doc) do
+      {:ok, ast} -> Plot.Document.new(ast)
+      err        -> err
     end
   end
-
 end
