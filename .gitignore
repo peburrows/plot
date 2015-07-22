@@ -4,3 +4,4 @@ erl_crash.dump
 *.ez
 /src/*_lexer.erl
 /src/*_parser.erl
+graphql_lexer.beam
