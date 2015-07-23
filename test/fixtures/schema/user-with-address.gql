@@ -1,0 +1,4 @@
+type User {
+  guid:    ID!
+  address: Address
+}

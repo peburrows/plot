@@ -28,7 +28,8 @@ defmodule Plot.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:mix_test_watch, "~> 0.1.2", only: :dev}
+      {:mix_test_watch, "~> 0.1.2", only: :dev},
+      {:poison, "~> 1.4.0"}
     ]
   end
 end
