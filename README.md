@@ -1,6 +1,8 @@
 Plot
 ====
-A GraphQL lexer and parser for Elixir
+A GraphQL lexer and parser for Elixir.
+
+This project is still a work in progress, but the eventual goal is to support the full GraphQL spec.
 
 ### Basic Usage
 
