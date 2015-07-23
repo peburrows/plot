@@ -18,7 +18,8 @@ This project is still a work in progress, but the eventual goal is to support th
 # {:ok,
 # [{:query, nil,
 #   [{:object, :user, nil, [],
-#     [{:field, :id, nil, []}, {:field, :firstName, nil, []},
+#     [{:field, :id, nil, []},
+#      {:field, :firstName, nil, []},
 #      {:field, :lastName, nil, []}]}]}]}
 ```
 
@@ -34,8 +35,8 @@ This project is still a work in progress, but the eventual goal is to support th
 # %Plot.Document{fragments: [],
 #  operations: [%Plot.Query{name: nil,
 #  objects:    [%Plot.Object{alias: nil, args: [],
-#  fields:     [%Plot.Field{alias: nil, args: [], name: :lastName},
-#               %Plot.Field{alias: nil, args: [], name: :firstName},
-#               %Plot.Field{alias: nil, args: [], name: :id}], name: :user}]}],
+#               fields: [%Plot.Field{alias: nil, args: [], name: :lastName},
+#                        %Plot.Field{alias: nil, args: [], name: :firstName},
+#                        %Plot.Field{alias: nil, args: [], name: :id}], name: :user}]}],
 # variables:   []}
 ```
