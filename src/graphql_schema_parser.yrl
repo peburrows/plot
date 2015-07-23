@@ -1,5 +1,5 @@
 Nonterminals declarations declaration typelist typedef.
-Terminals '{' '}' ':' '!' type key builtin.
+Terminals '{' '}' '[' ']' ':' '!' type key builtin.
 Rootsymbol declarations.
 
 declarations -> declaration                   : ['$1'].
@@ -10,9 +10,13 @@ declaration  -> type key '{' typelist '}'     : #type{name=value('$2'), fields='
 typelist     -> typedef                       : ['$1'].
 typelist     -> typedef typelist              : ['$1'|'$2'].
 
+% built-ins
+typedef      -> key ':' '[' builtin ']'       : {value('$1'), [value('$4')], false}.
 typedef      -> key ':' builtin '!'           : {value('$1'), value('$3'), true}.
 typedef      -> key ':' builtin               : {value('$1'), value('$3'), false}.
+
 % custom types
+typedef      -> key ':' '[' key ']'           : {value('$1'), [value('$4')], false}.
 typedef      -> key ':' key '!'               : {value('$1'), value('$3'), true}.
 typedef      -> key ':' key                   : {value('$1'), value('$3'), false}.
 

@@ -37,4 +37,16 @@ defmodule PlotSchemaTest do
       }]
     } = read_fixture("schema/user-with-address") |> Plot.Schema.parse
   end
+
+  test "type with list field" do
+    assert {:ok,
+      [{:type, :User, nil,
+        [
+          {:guid,  :ID, true},
+          # I don't know if this is actually how we want to do this...
+          {:books, [:Book], false}
+        ]
+      }]
+    } = read_fixture("schema/user-with-books") |> Plot.Schema.parse
+  end
 end
