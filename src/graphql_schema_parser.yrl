@@ -11,14 +11,14 @@ typelist     -> typedef                       : ['$1'].
 typelist     -> typedef typelist              : ['$1'|'$2'].
 
 % built-ins
-typedef      -> key ':' '[' builtin ']'       : {value('$1'), [value('$4')], false}.
-typedef      -> key ':' builtin '!'           : {value('$1'), value('$3'), true}.
-typedef      -> key ':' builtin               : {value('$1'), value('$3'), false}.
+typedef      -> key ':' '[' builtin ']'       : {value('$1'), list,   {builtin, value('$4')}, false}.
+typedef      -> key ':' builtin '!'           : {value('$1'), scalar, {builtin, value('$3')}, true}.
+typedef      -> key ':' builtin               : {value('$1'), scalar, {builtin, value('$3')}, false}.
 
 % custom types
-typedef      -> key ':' '[' key ']'           : {value('$1'), [value('$4')], false}.
-typedef      -> key ':' key '!'               : {value('$1'), value('$3'), true}.
-typedef      -> key ':' key                   : {value('$1'), value('$3'), false}.
+typedef      -> key ':' '[' key ']'           : {value('$1'), list,   {custom, value('$4')}, false}.
+typedef      -> key ':' key '!'               : {value('$1'), object, {custom, value('$3')}, true}.
+typedef      -> key ':' key                   : {value('$1'), object, {custom, value('$3')}, false}.
 
 Erlang code.
 value({_Token, _Line, Value}) -> Value.
