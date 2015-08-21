@@ -1,0 +1,9 @@
+type User {
+  firstName: String
+  books(first:Int, offset:Int): [Book]
+}
+
+type Book {
+  title:  String!
+  author: String
+}

@@ -35,7 +35,6 @@ type Book {
 }
 
 type Highlight {
-  # non-null value with `!`
   isbn: String!
   selectedText: String
   cfi: String
