@@ -38,7 +38,9 @@ arglist  -> '(' args ')'                         : '$2'.
 args     -> arg                                  : ['$1'].
 args     -> arg ',' args                         : ['$1'|'$3'].
 
-arg      -> key ':' value                        : {value('$1'), '$3'}.
+% arg      -> key ':' value                        : {value('$1'), '$3'}.
+% insert the key as the first element of the tuple returned via the value
+arg      -> key ':' value                        : erlang:insert_element(1, '$3', value('$1')).
 
 array    -> '[' ']'                              : [].
 array    -> '[' list ']'                         : '$2'.
@@ -46,7 +48,7 @@ array    -> '[' list ']'                         : '$2'.
 list     -> value                                : ['$1'].
 list     -> value ',' list                       : ['$1'|'$3'].
 
-value    -> array                                : '$1'.
+value    -> array                                : {array, '$1'}.
 value    -> variable                             : {variable, value('$1')}.
 value    -> string                               : {string,   stringvalue('$1')}.
 value    -> number                               : {number,   value('$1')}.

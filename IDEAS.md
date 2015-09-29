@@ -17,8 +17,8 @@ query userWithBooks {
 We need some way to map to the backend JSON
 
 # %{books: "/books.json"}
+# {:book, "/books.json"}
 # if you need to call a different URL for user->books than books
-# %{user:  "/user.json", books: "/user/books.json"}
 
 type User {
   firstName: String
@@ -39,3 +39,9 @@ type Highlight {
   selectedText: String
   cfi: String
 }
+
+```elixir
+defmodule UserResolver do
+  def resolver(%Plot.Object{name: "user"}, parent, args \\ [])
+end
+```
