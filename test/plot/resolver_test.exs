@@ -4,7 +4,6 @@ defimpl Plot.Resolution, for: Plot.Object do
   end
 
   def resolve(%Plot.Object{name: "birthday"}, _context) do
-    IO.puts "resolving the object 'birthday'"
     %{"day" => 15, "month" => 12, "year" => 2015}
   end
 end
