@@ -17,7 +17,7 @@ defmodule PlotTest do
 
   test "{user(id: 4)}" do
     assert {:ok,
-      [{:query, nil, [ {:field, "user", nil, [{"id", :number, 4}]} ] }]
+      [{:query, nil, [ {:field, "user", nil, [{"id", {:number, 4}}]} ] }]
     } = Plot.parse("{user(id: 4)}")
   end
 
@@ -30,7 +30,7 @@ defmodule PlotTest do
   test "basic user with field" do
     assert {:ok,
       [{:query, nil,
-        [ {:object, "user", nil, [{"id", :number, 4}], [{:field, "name", nil, []}]} ]
+        [ {:object, "user", nil, [{"id", {:number, 4}}], [{:field, "name", nil, []}]} ]
       }]
     } = read_fixture("user") |> Plot.parse
   end
@@ -51,10 +51,10 @@ defmodule PlotTest do
     assert {:ok,
       [{:query, nil,
         [
-          {:object, "user", nil, [{"id", :number, 4}], [
+          {:object, "user", nil, [{"id", {:number, 4}}], [
             {:field, "id", nil, []},
             {:field, "name", nil, []},
-            {:field, "profilePic", nil, [{"width", :number, 100}, {"height", :number, 50}]}
+            {:field, "profilePic", nil, [{"width", {:number, 100}}, {"height", {:number, 50}}]}
           ]}
         ]
       }]
@@ -66,7 +66,7 @@ defmodule PlotTest do
       [{:query, nil,
         [
           {
-            :object, "user", nil, [{"id", :number, 4}], [
+            :object, "user", nil, [{"id", {:number, 4}}], [
               {:field, "id", nil, []},
               {:field, "firstName", nil, []},
               {:field, "lastName",  nil, []},
@@ -85,7 +85,7 @@ defmodule PlotTest do
   test "user with top level alias" do
     assert {:ok,
       [{:query, nil, [
-        {:object, "user", "phil", [{"id", :number, 4}], [
+        {:object, "user", "phil", [{"id", {:number, 4}}], [
           {:field, "id",   nil, []},
           {:field, "name", nil, []}
         ]}
@@ -97,11 +97,11 @@ defmodule PlotTest do
     assert {:ok,
       [{:query, nil,
         [
-          {:object, "user", nil, [{"id", :number, 4}], [
+          {:object, "user", nil, [{"id", {:number, 4}}], [
             {:field, "id", nil, []},
             {:field, "name", nil, []},
-            {:field, "profilePic", "smallPic", [{"size", :number, 64}]},
-            {:field, "profilePic", "bigPic", [{"size", :number, 1024}]}
+            {:field, "profilePic", "smallPic", [{"size", {:number, 64}}]},
+            {:field, "profilePic", "bigPic", [{"size", {:number, 1024}}]}
           ]}
         ]
       }]
@@ -178,7 +178,7 @@ defmodule PlotTest do
     assert {:ok,
       [{:query, nil,
         [{:object, "user", nil,
-          [{"things", :array, [{:number, 4}, {:string, "phil"}, {:variable, "whatever"}]}],
+          [{"things", {:array, [{:number, 4}, {:string, "phil"}, {:variable, "whatever"}]}}],
           [{:field, "id", nil, []}]
           }
         ]
