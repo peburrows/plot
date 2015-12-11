@@ -26,6 +26,7 @@ object   -> '.' '.' '.' on key '{' objects '}'   : #fragment{type=value('$5'), o
 
 % with aliases
 object   -> key ':' value                        : #field{name=value('$3'), alias=value('$1')}.
+object   -> key ':' key                          : #field{name=value('$3'), alias=value('$1')}.
 object   -> key ':' key arglist                  : #field{name=value('$3'), alias=value('$1'), args='$4'}.
 object   -> key ':' key '{' objects '}'          : #object{name=value('$3'), alias=value('$1'), children='$5'}.
 object   -> key ':' key arglist '{' objects '}'  : #object{name=value('$3'), alias=value('$1'), args='$4', children='$6' }.

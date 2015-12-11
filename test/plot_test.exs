@@ -100,7 +100,7 @@ defmodule PlotTest do
           {:object, "user", nil, [{"id", {:number, 4}}], [
             {:field, "id", nil, []},
             {:field, "name", nil, []},
-            {:field, "profilePic", "smallPic", [{"size", {:number, 64}}]},
+            {:field, "profilePic", "smallPic", []},
             {:field, "profilePic", "bigPic", [{"size", {:number, 1024}}]}
           ]}
         ]
